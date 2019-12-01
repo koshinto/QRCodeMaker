@@ -7,7 +7,7 @@ const genbtn = document.getElementById('genbtn')
 let win:BrowserWindow
 
 genbtn.addEventListener('click', (event) => {
-	const modalPath: string = path.resolve(__dirname, `../../src/popup-window.html`)
+	const modalPath: string = path.resolve(__dirname, `../../src/modal-window.html`)
 	let url = (<HTMLInputElement>document.getElementById('url')).value
 	// ipcRenderer.sendSync('qrcode', url)
 
