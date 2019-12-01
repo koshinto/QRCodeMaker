@@ -5,12 +5,12 @@
     <title>Hello World!</title>
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="../dist/renderer.js">
   </head>
-  <body style="background-color: white;">
-    <h1>QRCode Maker</h1>
-    <input type="text" id="url" placeholder="https://example.com/...">
-    <button id="genbtn">Generate</button>
-    <div id="image"></div>
+  <body>
+    <h1>Modal Window</h1>
+    <div id="qrcode-spc"></div>
+    <button id="clsbtn" onclick="window.close()">close</button>
     <script>
       require('.././dist/renderer-process/renderer.js')
     </script>
