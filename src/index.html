@@ -6,9 +6,13 @@
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
   </head>
-  <body>
+  <body style="background-color: white;">
     <h1>QRCode Maker</h1>
     <input type="text" id="url" placeholder="https://example.com/...">
-    <button id="send">Generate</button>
+    <button id="genbtn">Generate</button>
+    <div id="image"></div>
+    <script>
+      require('.././dist/renderer-process/renderer.js')
+    </script>
   </body>
 </html>
