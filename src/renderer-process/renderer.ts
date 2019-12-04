@@ -1,5 +1,4 @@
-import { remote, ipcRenderer, BrowserWindow } from "electron"
-import * as path from "path"
+import { ipcRenderer } from "electron"
 import * as qrcode from 'qrcode'
 
 
@@ -29,4 +28,5 @@ generate.addEventListener('click', (event) => {
 })
 
 
-console.log('renderer ready.')
+let message = ipcRenderer.sendSync('message', 'renderer ready')
+console.log(message)
