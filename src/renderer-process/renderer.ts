@@ -1,31 +1,30 @@
 import { remote, ipcRenderer, BrowserWindow } from "electron"
 import * as path from "path"
+import * as qrcode from 'qrcode'
 
 
-const genbtn = document.getElementById('genbtn')
-let win:BrowserWindow
+const generate = <HTMLInputElement>document.getElementById('generate')
 
-genbtn.addEventListener('click', (event) => {
-	const modalPath: string = path.resolve(__dirname, `../../src/modal-window.html`)
-	let url = (<HTMLInputElement>document.getElementById('url')).value
+let canvas = document.getElementsByTagName('canvas')[0]
+let context = canvas.getContext('2d')
+context.fill()
 
+let url: string
+let alert = <HTMLInputElement>document.getElementById('alert')
+
+generate.addEventListener('click', (event) => {
+	url = (<HTMLInputElement>document.getElementById('url')).value
+	alert.textContent = null
+	context.clearRect(0, 0, canvas.width, canvas.height)
 	if (url !== '') {
-		// ipcRenderer.sendSync('qrcode', url)
-	
-		win = new remote.BrowserWindow ({
-			width: 400,
-			height: 320,
-			titleBarStyle: "hidden",
+		qrcode.toCanvas(canvas, url, function (error) {
+			if (error) { 
+				console.log(error)
+				alert.innerHTML = `<p>Error.</p>`
+			}
 		})
-	
-		win.on('close', () => { win = null })
-		win.loadFile(modalPath)
-		win.show()
 	} else {
-		// テキストが入力されていない場合、エラーメッセージを表示
-		const message: string = 'Error! URL is blank.'
-		let el = (<HTMLInputElement>document.getElementById('notice'))
-		el.innerHTML = `<p>${message}</p>`
+		alert.innerHTML = '<p>URL is Blank.</p>'
 	}
 })
 

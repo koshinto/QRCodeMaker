@@ -8,10 +8,10 @@
   </head>
   <body style="background-color: white;">
     <h1>QRCode Maker</h1>
-    <div id="notice"></div>
+    <div id="alert"></div>
     <input type="text" id="url" placeholder="https://example.com/...">
-    <button id="genbtn">Generate</button>
-    <div id="image"></div>
+    <button id="generate">Generate</button>
+    <canvas width="150" height="150"></canvas>
     <script>
       require('.././dist/renderer-process/renderer.js')
     </script>
