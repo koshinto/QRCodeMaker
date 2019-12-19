@@ -5,7 +5,8 @@ import { resolve } from 'path'
 class CreateWindow {
 	private win: BrowserWindow
 	private app: App
-	private mainURL:string = resolve(__dirname, '../src/index.html')
+	private mainURL: string = resolve(__dirname, '../src/index.html')
+	private debug: boolean = /--debug/.test(process.argv[2])
 
 	constructor(app: App) {
 		this.app = app   
@@ -30,7 +31,7 @@ class CreateWindow {
 			}
 		})
 
-		this.win.webContents.openDevTools()
+		if (this.debug) this.win.webContents.openDevTools()
 		this.win.loadFile(this.mainURL)
 		this.win.on('closed', () => {
 			this.win = null
