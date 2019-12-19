@@ -10,14 +10,14 @@ saveButton.addEventListener('click', (event) => {
 })
 
 ipcRenderer.on('saved', (event, filepath) =>{
-  if (typeof filepath.Canceled !== 'undefined') {
-    console.log(`Save to ${filepath.filePath}`)
+  if (!filepath.canceled) {
+    console.log(`Successful! Save to ${filepath.filePath}`)
     const canvas = document.getElementsByTagName('canvas')[0]
     if (canvas) {
       const dataType = <HTMLInputElement>document.getElementById('save-option')
       const dataURL = canvas.toDataURL(`image/${dataType.value}`)
       console.log(dataURL)
-      const dataURI = dataURL.replace(/^data:image\/(png|jpg);base64,/, "")
+      const dataURI = dataURL.replace(/^data:image\/(png|jpeg);base64,/, "")
       writeFile(filepath.filePath, dataURI, 'base64', (error) => {
         if (error) {
           console.log(error)
