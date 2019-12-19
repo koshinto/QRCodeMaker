@@ -8,12 +8,22 @@
   </head>
   <body style="background-color: white;">
     <h1>QRCode Maker</h1>
-    <div id="alert"></div>
+    <div id="notice"></div>
     <input type="text" id="url" placeholder="https://example.com/...">
-    <button id="generate">Generate</button>
-    <canvas width="150" height="150"></canvas>
+    <div id="options">
+      <select name="save-option" id="save-option">
+        <option value="png">png</option>
+        <option value="jpg">jpg</option>
+      </select>
+    </div>
+    <div>
+      <button id="generate">Generate</button>
+    </div>
+    <div><canvas width="150" height="150"></canvas></div>
+    <button id="save" style="display: none;">save</button>
     <script>
       require('.././dist/renderer-process/renderer.js')
+      require('.././dist/renderer-process/save.js')
     </script>
   </body>
 </html>

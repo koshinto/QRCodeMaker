@@ -1,4 +1,4 @@
-import { BrowserWindow, app, App, ipcMain } from 'electron'
+import { BrowserWindow, app, App, ipcMain, dialog } from 'electron'
 import { resolve } from 'path'
 
 
@@ -45,7 +45,20 @@ class CreateWindow {
 }
 
 const Window: CreateWindow = new CreateWindow(app)
+
 ipcMain.on('message', (event, args) => {
 	console.log(args)
 	event.returnValue = `Already started on your system. Electron ${process.versions.electron}, Chromium ${process.versions.chrome}.`
+})
+
+ipcMain.on('save-dialog',(event, extension) => {
+	const options = {
+		title: "Save an Image",
+		filters: [
+			{ name: "Images", extensions: [extension] },
+		]
+	}
+	dialog.showSaveDialog(options).then(function (filepath) {
+		event.sender.send('saved', filepath)
+	})
 })
