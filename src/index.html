@@ -5,22 +5,30 @@
     <title>Hello World!</title>
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="../assets/stylesheet.css">
   </head>
-  <body style="background-color: white;">
-    <h1>QRCode Maker</h1>
-    <div id="notice"></div>
-    <input type="text" id="url" placeholder="https://example.com/...">
-    <div id="options">
-      <select name="save-option" id="save-option">
-        <option value="png">png</option>
-        <option value="jpeg">jpeg</option>
-      </select>
-    </div>
-    <div>
-      <button id="generate">Generate</button>
-    </div>
-    <div><canvas width="150" height="150"></canvas></div>
-    <button id="save" style="display: none;">save</button>
+  <body>
+    <article>
+      <h1 id="app-name" class="no-select">QRCode Maker</h1>
+      <div id="notice"></div>
+      <section>
+        <div id="option"><hr size="1" color="1a254c"><input type="text" id="url" placeholder="https://example.com/..."></div>
+        <div id="option">
+          <select name="save-option" id="save-option">
+            <option value="png">PNG</option>
+            <option value="jpeg">JPEG</option>
+          </select>
+        </div>
+        <div>
+          <button id="generate" class="no-select">Generate</button>
+        </div>
+      </section>
+      <section id="result">
+        <hr size="1" color="1a254c">
+        <div><canvas width="150" height="150"></canvas></div>
+        <button id="save" style="display: none;">save</button>
+      </section>
+    </article>
     <script>
       require('.././dist/renderer-process/renderer.js')
       require('.././dist/renderer-process/save.js')
