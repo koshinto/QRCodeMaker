@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url("../fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url("../fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+}
+
 html {
   height: 100%;
   width: 100%;
@@ -6,7 +16,7 @@ html {
 body {
   background-color: #ebdcb3;
   color: #1a254c;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat-Regular', sans-serif;
   text-align: center;
   font-size: 1.2em;
 }
@@ -53,8 +63,12 @@ button {
   padding-bottom: 10px;
   border: none;
   outline: none;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-family: 'Montserrat-Regular', sans-serif;
+}
+
+#app-name {
+  margin: 1.5em 0 0.5em 0;
+  font-family: 'Montserrat-Bold';
 }
 
 #generate {
@@ -66,11 +80,7 @@ button {
 #save {
   font-size: large;
   color: white;
-  background-color: coral;
-}
-
-#app-name {
-  margin: 1.5em 0 0.5em 0;
+  background-color: #4bb543;
 }
 
 #url {
@@ -86,6 +96,16 @@ button {
   margin: 15px 0;
 }
 
+#notice {
+  width: 50%;
+  margin: 5px auto;
+}
+
+.notice-message {
+  text-align: left;
+  color: red;
+  font-size: small;
+}
 
 select::before {
   z-index: 1;

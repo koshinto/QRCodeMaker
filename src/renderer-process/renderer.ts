@@ -20,13 +20,13 @@ generate.addEventListener('click', (event) => {
 		qrcode.toCanvas(canvas, url, function (error) {
 			if (error) { 
 				console.log(error)
-				alert = ['Unexpected error']
+				alert = ['Unexpected error.']
 				setNotice(alert)
 			}
 		})
 		saveButton.style.display = 'block' 
 	} else {
-		alert = ['URL is blank', 'Put value into the form']
+		alert = ['URL is blank.', 'Please put value in the textbox.']
 		setNotice(alert)
 	}
 })
@@ -42,7 +42,7 @@ function setNotice(alert: Array<string>) {
 	if (alert) {
 		for (const i in alert) {
 			if (alert.hasOwnProperty(i)) {
-				notice.innerHTML += `<p>${alert[i]}</p>`;
+				notice.innerHTML += `<li class="notice-message">${alert[i]}</li>`;
 			}
 		}
 	}
