@@ -1,6 +1,6 @@
-import { BrowserWindow, app, App, ipcMain, dialog } from 'electron'
+import { BrowserWindow, app, App, Menu, ipcMain, dialog, shell } from 'electron'
 import { resolve } from 'path'
-
+const appName = require('../package.json').name
 
 class CreateWindow {
 	private win: BrowserWindow
@@ -9,10 +9,16 @@ class CreateWindow {
 	private debug: boolean = /--debug/.test(process.argv[2])
 
 	constructor(app: App) {
-		this.app = app   
+		this.app = app
+		this.override()
 		this.app.on('window-all-closed', this.onWindowAllClosed.bind(this))  
 		this.app.on('ready', this.onReady.bind(this))
 		this.app.on('activate', this.onActivated.bind(this))
+	}
+
+	private override() {
+		this.app.name = appName ? appName : 'QRCodeMaker'
+		Menu.setApplicationMenu(null)
 	}
 
 	private onWindowAllClosed() {
@@ -31,7 +37,9 @@ class CreateWindow {
 			}
 		})
 
-		if (this.debug) this.win.webContents.openDevTools()
+		if (this.debug) {
+			this.win.webContents.openDevTools()
+		}
 		this.win.loadFile(this.mainURL)
 		this.win.on('closed', () => {
 			this.win = null
