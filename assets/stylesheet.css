@@ -56,6 +56,24 @@ input[type='text']:focus {
   outline: 0;
 }
 
+input[type='radio'] {
+  display: none;
+}
+
+.radio-selecter-text {
+  display: inline-block;
+  margin: 3px;
+  width: 70px;
+  padding: 5px 20px;
+  border: 1px solid #1a254c;
+  text-align: center;
+}
+
+input[type='radio']:checked + label {
+  color: #ebdcb3;
+  background-color: #1a254c;
+}
+
 button {
   margin: 5px 0;
   width: 100%;

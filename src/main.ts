@@ -1,4 +1,4 @@
-import { BrowserWindow, app, App, Menu, ipcMain, dialog, shell } from 'electron'
+import { BrowserWindow, app, App, Menu, ipcMain, dialog } from 'electron'
 import { resolve } from 'path'
 const appName = require('../package.json').name
 
@@ -17,8 +17,74 @@ class CreateWindow {
 	}
 
 	private override() {
-		this.app.name = appName ? appName : 'QRCodeMaker'
-		Menu.setApplicationMenu(null)
+		this.app.name = !appName ? 'QRCodeMaker' : appName
+		const isMac = process.platform === 'darwin'
+		const template: any = [
+			// Application Menu
+			...(isMac ? [{
+				label: this.app.name,
+				submenu: [
+					{ role: 'about' },
+					{ role: 'hide' },
+					{ role: 'unhide' },
+					{ role: 'quit' }
+				]
+			}] : []),
+			// File Menu
+			{
+				label: 'File',
+				submenu: [
+					{ role: 'undo' },
+					{ role: 'redo' },
+					{ type: 'separator' },
+					{ role: 'cut' },
+					{ role: 'copy' },
+					{ role: 'paste' },
+					{ role: 'delete' },
+					{ role: 'selectAll' },
+					{ type: 'separator' },
+					(isMac ? { role: 'close' } : { role: 'quit' })
+				]
+			},
+			// View
+			{
+				label: 'View',
+				submenu: [
+					{ role: 'reload' },
+					{ role: 'forcereload' },
+					{ role: 'toggledevtools' },
+					{ type: 'separator' },
+					{ role: 'resetzoom' },
+					{ role: 'zoomin' },
+					{ role: 'zoomout' },
+					{ type: 'separator' },
+					{ role: 'togglefullscreen' },
+					{ role: 'minimize' },
+					{ role: 'zoom' },
+					...(isMac ? [
+						{ type: 'separator' },
+						{ role: 'front' },
+						{ type: 'separator' },
+						{ role: 'window' }
+					] : [])
+				]
+			},
+			// Help Menu
+			{
+				role: 'Help',
+				submenu: [
+					{
+						label: 'Contact',
+						click: async () => {
+							const { shell } = require('electron')
+							await shell.openExternal('https://www.cogitare-de-fun.com/')
+						}
+					}
+				]
+			}
+		]
+		let menu: Menu = Menu.buildFromTemplate(template)
+		Menu.setApplicationMenu(menu)
 	}
 
 	private onWindowAllClosed() {
@@ -64,10 +130,15 @@ ipcMain.on('save-dialog',(event, extension) => {
 	const options = {
 		title: "Save an Image",
 		filters: [
-			{ name: "Images", extensions: [extension] },
+			{ name: "Images", extensions: [replaceExtension(extension)] },
 		]
 	}
 	dialog.showSaveDialog(options).then(function (filepath) {
 		event.sender.send('saved', filepath)
 	})
 })
+
+function replaceExtension(extension: string) {
+	let replaced = extension.replace(/jpeg/, 'jpg')
+	return replaced
+}

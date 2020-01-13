@@ -14,10 +14,8 @@
       <section>
         <div id="option"><hr size="1" color="1a254c"><input type="text" id="url" placeholder="https://example.com/..."></div>
         <div id="option">
-          <select name="save-option" id="save-option">
-            <option value="png">PNG</option>
-            <option value="jpeg">JPEG</option>
-          </select>
+          <input type="radio" name="extension" value="png" id="radio-selecter-1" checked="checked"><label for="radio-selecter-1" class="radio-selecter-text">PNG</label>
+          <input type="radio" name="extension" value="jpeg" id="radio-selecter-2"><label for="radio-selecter-2" class="radio-selecter-text">JPG</label>
         </div>
         <div>
           <button id="generate" class="no-select">Generate</button>
@@ -32,6 +30,7 @@
     <script>
       require('.././dist/renderer-process/renderer.js')
       require('.././dist/renderer-process/save.js')
+      require('.././dist/rende rer-process/context-menu.js')
     </script>
   </body>
 </html>
